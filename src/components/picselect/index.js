@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Table} from 'antd';
 import axios from 'axios';
+import {PaginationProps} from "antd";
 
 const TableComponent = (props) => {
     const [data, setData] = useState([]);
@@ -53,6 +54,9 @@ const TableComponent = (props) => {
         selectedRowKeys,
         onChange: handleRowSelection,
     };
+    const onChange = (pageNumber) => {
+        console.log('Page: ', pageNumber);
+    };
 
     const OnCropClick = () => {
         console.log(selectedRowKeys);
@@ -74,7 +78,8 @@ const TableComponent = (props) => {
                 pagination={{
                     defaultCurrent: 1,
                     total:pageNum,
-                    showSizeChanger: false
+                    showSizeChanger: false,
+                    onChange:{onChange}
                 }}
             />
             <Button type="primary" onClick={OnCropClick}>裁剪</Button>
