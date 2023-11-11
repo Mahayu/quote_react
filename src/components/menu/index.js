@@ -45,7 +45,7 @@ const MenuSide = () => {
             </Sider>
             <Layout>
                 <Content
-                    key={'crop'}
+                    key={'upload'}
                     style={{
                         margin: 0,
                     }}

@@ -65,6 +65,9 @@ const TableComponent = (props) => {
                 columns={columns}
                 dataSource={data}
                 rowSelection={rowSelection}
+                style={{
+                    height:"20%"
+            }}
             />
             <Button type="primary" onClick={OnCropClick}>裁剪</Button>
         </div>
