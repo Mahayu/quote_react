@@ -17,7 +17,7 @@ function getItem(label, key, icon, children) {
 }
 
 const items = [
-    getItem('自动裁剪', 'crop', <FontAwesomeIcon icon={faCrop} />),
+    getItem('新增语录', 'upload', <FontAwesomeIcon icon={faCrop} />),
     getItem('识别文字', 'OCR', <FontAwesomeIcon icon={faCamera} />),
     getItem('历史识别', 'history', <FontAwesomeIcon icon={faClockRotateLeft} />),
 ];
@@ -41,7 +41,7 @@ const MenuSide = () => {
                 <div className="demo-logo-vertical">
                     {/*logo*/}
                 </div>
-                <Menu theme="dark" defaultSelectedKeys={['crop']} onClick={onClick} selectedKeys={{current}} mode="inline" items={items}/>
+                <Menu theme="dark" defaultSelectedKeys={['upload']} onClick={onClick} selectedKeys={{current}} mode="inline" items={items}/>
             </Sider>
             <Layout>
                 <Content
@@ -56,7 +56,7 @@ const MenuSide = () => {
                             background: colorBgContainer,
                         }}
                     />
-                    {current === 'crop' && <UploadForm/>}
+                    {current === 'upload' && <UploadForm/>}
                     {current === 'OCR' && <div>OCR</div>}
                     {current === 'history' && <div>history</div>}
                 </Content>
