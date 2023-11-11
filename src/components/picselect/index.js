@@ -5,17 +5,26 @@ import axios from 'axios';
 const TableComponent = (props) => {
     const [data, setData] = useState([]);
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+    const [pageNum,setpageNum] = useState()
 
     useEffect(() => {
         axios.get(props.loadlink)
             .then(response => {
                 setData(response.data);
-                console.log(response.data);
             })
             .catch(error => {
                 console.error(error);
             });
     }, [props.loadlink]);
+
+    useEffect(()=>{
+        axios.get('http://localhost:5000/get_todo_number')
+            .then(response=>{
+                console.log(1)
+                console.log(response.data);
+                setpageNum(response.data);
+            })
+    })
 
     const handleRowSelection = (selectedRowKeys) => {
         setSelectedRowKeys(selectedRowKeys);
