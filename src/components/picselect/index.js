@@ -25,16 +25,21 @@ const TableComponent = (props) => {
     const columns = [
         {
             title: '图片',
-            dataIndex: 'image',
-            key: 'image',
+            dataIndex: 'pic',
+            key: 'pic',
             render: (image) => (
                 <img src={`data:image/jpeg;base64,${image}`} alt="图片" style={{width: '100px'}}/>
             ),
         },
         {
-            title: 'UUID',
-            dataIndex: 'uuid',
-            key: 'uuid',
+            title: 'uuid',
+            dataIndex: 'key',
+            key: 'key',
+        },
+        {
+            title: '上传日期',
+            dataIndex: 'date',
+            key: 'date',
         },
     ];
 

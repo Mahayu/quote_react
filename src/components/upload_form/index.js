@@ -9,17 +9,15 @@ const {Dragger} = Upload;
 const UploadForm = () => {
     const handleUpload = async (file) => {
         const formData = new FormData();
-        formData.append('file', file);
-
+        formData.append('files', file);
         try {
-            const response = await axios.post('http://localhost:5000/upload_cut', formData, {
+            const response = await axios.post('http://localhost:5000/quote_upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-
             // 根据接口返回的响应进行处理
-            if (response.data.success) {
+            if (response.data.status === "success") {
                 message.success(`${file.name} file uploaded successfully.`);
             } else {
                 message.error(`${file.name} file upload failed.`);
@@ -51,7 +49,7 @@ const UploadForm = () => {
                 </Dragger>
             </div>
             <div className="upload-box">
-                <Picselect loadlink={'http://localhost:5000/api/images'}/>
+                <Picselect loadlink={'http://localhost:5000/get_todo_image'}/>
             </div>
         </div>
     );
