@@ -1,8 +1,10 @@
 .upload-box {
-    width: 500px;
-    height: 500px;
+
+}
+
+.upload{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-items: baseline;
+    margin: auto;
 }

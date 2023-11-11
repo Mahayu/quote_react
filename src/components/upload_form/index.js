@@ -37,18 +37,17 @@ const UploadForm = () => {
     return (
         <div className="upload">
             <div className="upload-box">
-                <Dragger {...props}>
+                <Dragger {...props} style={{
+                     display: "flex",
+                     alignItems : "center"
+                }}>
                     <p className="ant-upload-drag-icon">
                         <InboxOutlined/>
                     </p>
-                    <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                    <p className="ant-upload-hint">
-                        Support for a single or bulk upload. Strictly prohibited from uploading company data or other
-                        banned files.
-                    </p>
+                    <p className="ant-upload-text"> 点一下上传语录捏 </p>
                 </Dragger>
             </div>
-            <div className="upload-box">
+            <div className="form-ready">
                 <Picselect loadlink={'http://localhost:5000/get_todo_image'}/>
             </div>
         </div>
