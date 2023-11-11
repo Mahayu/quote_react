@@ -9,8 +9,8 @@ const TableComponent = (props) => {
     useEffect(() => {
         axios.get(props.loadlink)
             .then(response => {
-                setData(response.data.images);
-                console.log(response.data.images);
+                setData(response.data);
+                console.log(response.data);
             })
             .catch(error => {
                 console.error(error);
