@@ -1,25 +1,24 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Table} from 'antd';
 import axios from 'axios';
-import {PaginationProps} from "antd";
 
 const TableComponent = (props) => {
     const [data, setData] = useState([]);
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-    const [pageNum,setpageNum] = useState()
+    const [pageNum, setpageNum] = useState()
+
+
+    axios.get(props.loadlink)
+        .then(response => {
+            setData(response.data);
+        })
+        .catch(error => {
+            console.error(error);
+        });
 
     useEffect(() => {
-        axios.get(props.loadlink)
-            .then(response => {
-                setData(response.data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    }, [props.loadlink]);
-    useEffect(()=>{
         axios.get('http://localhost:5000/get_todo_number')
-            .then(response=>{
+            .then(response => {
                 console.log(response.data);
                 setpageNum(response.data);
             })
@@ -29,33 +28,23 @@ const TableComponent = (props) => {
         console.log(selectedRowKeys);
     };
 
-    const columns = [
-        {
-            title: '图片',
-            dataIndex: 'pic',
-            key: 'pic',
-            render: (image) => (
-                <img src={`data:image/jpeg;base64,${image}`} alt="图片" style={{width: '100px'}}/>
-            ),
-        },
-        {
-            title: 'uuid',
-            dataIndex: 'key',
-            key: 'key',
-        },
-        {
-            title: '上传日期',
-            dataIndex: 'date',
-            key: 'date',
-        },
-    ];
+    const columns = [{
+        title: '图片',
+        dataIndex: 'pic',
+        key: 'pic',
+        render: (image) => (<img src={`data:image/jpeg;base64,${image}`} alt="图片" style={{width: '100px'}}/>),
+    }, {
+        title: 'uuid', dataIndex: 'key', key: 'key',
+    }, {
+        title: '上传日期', dataIndex: 'date', key: 'date',
+    },];
 
     const rowSelection = {
-        selectedRowKeys,
-        onChange: handleRowSelection,
+        selectedRowKeys, onChange: handleRowSelection,
     };
     const onChange = (pageNumber) => {
         console.log('Page: ', pageNumber);
+        setpageNum(pageNumber)
     };
 
     const OnCropClick = () => {
@@ -68,23 +57,18 @@ const TableComponent = (props) => {
         //         console.error(error);
         //     });
     }
-    return (
-        <div>
+    return (<div>
             <Table
                 rowKey={(record) => record.uuid}
                 columns={columns}
                 dataSource={data}
                 rowSelection={rowSelection}
                 pagination={{
-                    defaultCurrent: 1,
-                    total:pageNum,
-                    showSizeChanger: false,
-                    onChange:{onChange}
+                    defaultCurrent: 1, total: pageNum, showSizeChanger: false, onChange: onChange
                 }}
             />
             <Button type="primary" onClick={OnCropClick}>裁剪</Button>
-        </div>
-    );
+        </div>);
 };
 
 export default TableComponent;
