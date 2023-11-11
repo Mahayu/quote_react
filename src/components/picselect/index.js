@@ -16,16 +16,13 @@ const TableComponent = (props) => {
                 console.error(error);
             });
     }, [props.loadlink]);
-
     useEffect(()=>{
         axios.get('http://localhost:5000/get_todo_number')
             .then(response=>{
-                console.log(1)
                 console.log(response.data);
                 setpageNum(response.data);
             })
     })
-
     const handleRowSelection = (selectedRowKeys) => {
         setSelectedRowKeys(selectedRowKeys);
         console.log(selectedRowKeys);
@@ -74,6 +71,11 @@ const TableComponent = (props) => {
                 columns={columns}
                 dataSource={data}
                 rowSelection={rowSelection}
+                pagination={{
+                    defaultCurrent: 1,
+                    total:pageNum,
+                    showSizeChanger: false
+                }}
             />
             <Button type="primary" onClick={OnCropClick}>裁剪</Button>
         </div>
