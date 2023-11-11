@@ -6,6 +6,7 @@ const TableComponent = (props) => {
     const [data, setData] = useState([]);
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [pageNum, setpageNum] = useState()
+    const [nowPage,setNowPage]= useState(1)
 
 
     axios.get(props.loadlink)
@@ -44,7 +45,7 @@ const TableComponent = (props) => {
     };
     const onChange = (pageNumber) => {
         console.log('Page: ', pageNumber);
-        setpageNum(pageNumber)
+        setNowPage(pageNumber)
     };
 
     const OnCropClick = () => {
