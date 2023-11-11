@@ -6,16 +6,17 @@ const TableComponent = (props) => {
     const [data, setData] = useState([]);
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [pageNum, setpageNum] = useState()
-    const [nowPage,setNowPage]= useState(1)
+    const [nowPage, setNowPage] = useState(1)
 
-
-    axios.get(props.loadlink)
-        .then(response => {
-            setData(response.data);
-        })
-        .catch(error => {
-            console.error(error);
-        });
+    useEffect(() => {
+        axios.get(props.loadlink)
+            .then(response => {
+                setData(response.data);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    },[props.loadlink])
 
     useEffect(() => {
         axios.get('http://localhost:5000/get_todo_number')
@@ -24,6 +25,15 @@ const TableComponent = (props) => {
                 setpageNum(response.data);
             })
     })
+    useEffect(() => {
+        axios.get('')//TODO
+            .then(response =>{
+                setData(response.data)
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }, [nowPage]);
     const handleRowSelection = (selectedRowKeys) => {
         setSelectedRowKeys(selectedRowKeys);
         console.log(selectedRowKeys);
@@ -59,17 +69,17 @@ const TableComponent = (props) => {
         //     });
     }
     return (<div>
-            <Table
-                rowKey={(record) => record.uuid}
-                columns={columns}
-                dataSource={data}
-                rowSelection={rowSelection}
-                pagination={{
-                    defaultCurrent: 1, total: pageNum, showSizeChanger: false, onChange: onChange
-                }}
-            />
-            <Button type="primary" onClick={OnCropClick}>裁剪</Button>
-        </div>);
+        <Table
+            rowKey={(record) => record.uuid}
+            columns={columns}
+            dataSource={data}
+            rowSelection={rowSelection}
+            pagination={{
+                defaultCurrent: 1, total: pageNum, showSizeChanger: false, onChange: onChange
+            }}
+        />
+        <Button type="primary" onClick={OnCropClick}>裁剪</Button>
+    </div>);
 };
 
 export default TableComponent;
