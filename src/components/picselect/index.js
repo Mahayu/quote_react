@@ -26,7 +26,7 @@ const TableComponent = (props) => {
             })
     })
     useEffect(() => {
-        axios.get('')//TODO
+        axios.get('http://localhost:5000/get_todo_image?number='+ nowPage)
             .then(response =>{
                 setData(response.data)
             })
