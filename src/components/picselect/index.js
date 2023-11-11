@@ -9,9 +9,8 @@ const TableComponent = (props) => {
     useEffect(() => {
         axios.get(props.loadlink)
             .then(response => {
-                setData(response.data);
-                console.log(1)
-                console.log(response.data);
+                setData(response.data.images);
+                console.log(response.data.images);
             })
             .catch(error => {
                 console.error(error);
@@ -66,9 +65,6 @@ const TableComponent = (props) => {
                 columns={columns}
                 dataSource={data}
                 rowSelection={rowSelection}
-                style={{
-                    height : "40%",
-                }}
             />
             <Button type="primary" onClick={OnCropClick}>裁剪</Button>
         </div>
