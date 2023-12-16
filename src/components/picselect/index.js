@@ -7,16 +7,19 @@ const TableComponent = (props) => {
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [pageNum, setpageNum] = useState()
     const [nowPage, setNowPage] = useState(1)
+    const [refreshTime ,setrefreshTime] = useState(1)
 
     useEffect(() => {
         axios.get(props.loadlink)
             .then(response => {
                 setData(response.data);
+                setrefreshTime(refreshTime + 1)
+                console.log("rtEffect",refreshTime)
             })
             .catch(error => {
                 console.error(error);
             });
-    },[props.loadlink])
+    },[props.loadlink,refreshTime])
 
     useEffect(() => {
         axios.get('http://localhost:5000/get_todo_number')
@@ -60,13 +63,17 @@ const TableComponent = (props) => {
 
     const OnCropClick = () => {
         console.log(selectedRowKeys);
-        // axios.post('http://localhost:5000/api/crop', {uuids: selectedRowKeys})
-        //     .then(response => {
-        //         console.log(response.data);
-        //     })
-        //     .catch(error => {
-        //         console.error(error);
-        //     });
+         axios.post('http://localhost:5000/quote_ocr', {uuids: selectedRowKeys})
+             .then(response => {
+                 if(response.status === 200){
+                     console.log(response.data);
+                     setrefreshTime(refreshTime + 1)
+
+                 }
+             })
+             .catch(error => {
+                 console.error(error);
+             });
     }
     return (<div>
         <Table
@@ -78,7 +85,7 @@ const TableComponent = (props) => {
                 defaultCurrent: 1, total: pageNum, showSizeChanger: false, onChange: onChange
             }}
         />
-        <Button type="primary" onClick={OnCropClick}>裁剪</Button>
+        <Button type="primary" onClick={OnCropClick}>无尽战神 出来！</Button>
     </div>);
 };
 
