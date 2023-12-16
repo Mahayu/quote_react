@@ -70,7 +70,7 @@ const TableComponent = (props) => {
     }
     return (<div>
         <Table
-            rowKey={(record) => record.uuid}
+            rowKey={(record) => record.key}
             columns={columns}
             dataSource={data}
             rowSelection={rowSelection}
